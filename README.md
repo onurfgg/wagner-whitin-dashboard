@@ -39,7 +39,7 @@ This project is 100% frontend-based. No Node.js backend, no complex build tools,
    ```bash
    git clone [https://github.com/onurfgg/ie-inventory-optimizer.git](https://github.com/onurfgg/ie-inventory-optimizer.git)
 
-   👨‍💻 Author
+
 Onur Furkan Gök
 
 [Linkedin](https://www.linkedin.com/in/onurfurkan/) 

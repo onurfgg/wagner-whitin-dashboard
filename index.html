@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wagner-Whitin Optimizatörü | IE Dashboard</title>
+    <title>Envanter Optimizatörü | IE Dashboard</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -19,6 +19,7 @@
             --primary: #3b82f6;
             --primary-hover: #2563eb;
             --success: #10b981;
+            --warning: #f59e0b;
             --accent: #8b5cf6;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
@@ -33,16 +34,16 @@
             min-height: 100vh; display: flex; flex-direction: column; align-items: center;
         }
 
-        /* SOSYAL MEDYA BUTONLARI */
+        /* --- SOSYAL MEDYA BUTONLARI (Satranç Projesiyle Aynı) --- */
         .social-container {
             position: absolute; top: 20px; left: 20px; z-index: 15; display: flex; gap: 10px;
         }
         .social-btn {
             color: white; text-decoration: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; font-size: 14px;
             display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: 0.3s;
-            background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
         }
-        .social-btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .btn-linkedin { background: #0077b5; } .btn-linkedin:hover { background: #005885; transform: translateY(-2px); }
+        .btn-github { background: #24292e; } .btn-github:hover { background: #1b1f23; transform: translateY(-2px); }
 
         .dashboard {
             width: 100%; max-width: 1200px;
@@ -74,9 +75,9 @@
         .input-box label { font-size: 12px; text-transform: uppercase; font-weight: bold; color: var(--text-muted); }
         .input-box input {
             background: rgba(15, 23, 42, 0.8); border: 1px solid var(--glass-border);
-            color: white; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; outline: none;
+            color: white; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; outline: none; transition: 0.3s;
         }
-        .input-box input:focus { border-color: var(--primary); }
+        .input-box input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(59,130,246,0.3);}
 
         /* DÖNEMLER LİSTESİ */
         .periods-container {
@@ -89,11 +90,23 @@
         .period-input { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); color: white; padding: 10px; border-radius: 6px; outline: none;}
 
         .btn-controls { display: flex; gap: 10px; margin-top: 5px; }
-        .btn-sm { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 12px;}
-        .btn-sm:hover { background: rgba(255,255,255,0.1); }
+        .btn-sm { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border); padding: 8px 15px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 12px; flex: 1; font-weight: bold;}
+        .btn-sm:hover { background: rgba(255,255,255,0.1); border-color: var(--text-muted);}
         
         .btn-primary { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 900; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: auto; letter-spacing: 1px; text-transform: uppercase;}
         .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); }
+
+        /* YENİ: TALEP GRAFİĞİ (BAR CHART) */
+        .chart-container {
+            display: flex; align-items: flex-end; gap: 5px; height: 100px;
+            padding: 15px 5px 0 5px; border-bottom: 2px solid var(--glass-border);
+            margin-top: 10px;
+        }
+        .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .bar { width: 100%; background: var(--primary); border-radius: 4px 4px 0 0; transition: height 0.4s ease; position: relative;}
+        .bar:hover { background: var(--accent); }
+        .bar-label { font-size: 10px; color: var(--text-muted); font-weight: bold;}
+        .bar-value { position: absolute; top: -18px; font-size: 10px; font-weight: bold; width: 100%; text-align: center;}
 
         /* SONUÇ PANELİ */
         .result-card {
@@ -104,6 +117,17 @@
         .result-title { font-size: 14px; text-transform: uppercase; color: var(--success); font-weight: bold; margin-bottom: 5px;}
         .result-cost { font-size: 36px; font-weight: 900; font-family: monospace; color: white; text-shadow: 0 0 15px rgba(16, 185, 129, 0.5);}
         
+        /* YENİ: EOQ KARŞILAŞTIRMA KARTI */
+        .eoq-card {
+            background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px;
+        }
+        .eoq-icon { font-size: 30px; color: var(--warning); }
+        .eoq-content { flex: 1; }
+        .eoq-title { font-size: 12px; font-weight: bold; color: var(--warning); text-transform: uppercase; margin-bottom: 4px;}
+        .eoq-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4;}
+        .eoq-value { font-family: monospace; font-weight: bold; color: white; font-size: 16px;}
+
         .plan-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; font-size: 15px; line-height: 1.6; border: 1px solid var(--glass-border); }
         .plan-item { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.05); padding: 8px 0;}
         .plan-item:last-child { border-bottom: none; }
@@ -127,17 +151,18 @@
         }
 
         @media screen and (max-width: 900px) {
-            .dashboard { grid-template-columns: 1fr; margin-top: 80px;}
+            .dashboard { grid-template-columns: 1fr; margin-top: 60px;}
+            .social-container { position: relative; top: 0; left: 0; justify-content: center; width: 100%; margin-bottom: 10px;}
         }
     </style>
 </head>
 <body>
 
     <div class="social-container">
-        <a href="https://linkedin.com/in/onurfurkan" target="_blank" class="social-btn">
-            <i class="fab fa-linkedin" style="color: #0077b5;"></i> Onur Furkan Gök
+        <a href="https://linkedin.com/in/onurfurkan" target="_blank" class="social-btn btn-linkedin">
+            <i class="fab fa-linkedin"></i> Onur Furkan Gök
         </a>
-        <a href="https://github.com/onurfgg" target="_blank" class="social-btn">
+        <a href="https://github.com/onurfgg" target="_blank" class="social-btn btn-github">
             <i class="fab fa-github"></i> Onur Furkan Gök
         </a>
     </div>
@@ -147,9 +172,8 @@
             <h2><i class="fa-solid fa-boxes-stacked"></i> Veri Girişi & Model</h2>
             
             <div class="explanation">
-                <strong>Wagner-Whitin Algoritması</strong>, dinamik talepli ortamlarda hazırlık (setup) ve elde tutma (holding) maliyetlerini dengeleyerek toplam maliyeti minimize eden Dinamik Programlama modelidir.<br>
+                <strong>Wagner-Whitin (WW) Algoritması</strong>, dinamik talepli ortamlarda hazırlık ($S$) ve elde tutma ($h$) maliyetlerini dengeleyerek <strong>Dinamik Programlama</strong> ile kesin optimumu bulur.<br>
                 $$Z_t = \min_{1 \le j \le t} \left[ Z_{j-1} + S + \sum_{k=j}^{t} h \cdot D_k \cdot (k-j) \right]$$
-                Burada $Z_t$, $t$ dönemine kadarki minimum maliyeti temsil eder.
             </div>
 
             <div class="input-group">
@@ -172,23 +196,36 @@
                     <button class="btn-sm" id="btn-add-period"><i class="fa-solid fa-plus"></i> Dönem Ekle</button>
                 </div>
             </div>
+            
+            <div class="chart-container" id="demand-chart">
+                </div>
 
             <button class="btn-primary" id="btn-calculate"><i class="fa-solid fa-microchip"></i> Optimizasyonu Çalıştır</button>
         </div>
 
         <div class="panel">
-            <h2><i class="fa-solid fa-chart-line"></i> Çözüm ve DP Matrisi</h2>
+            <h2><i class="fa-solid fa-chart-line"></i> Çözüm Paneli</h2>
             
             <div class="result-card">
                 <div>
-                    <div class="result-title">Minimum Toplam Maliyet ($Z_N$)</div>
+                    <div class="result-title">WW Minimum Toplam Maliyet</div>
                     <div class="result-cost" id="total-cost-display">0 ₺</div>
                 </div>
                 <i class="fa-solid fa-check-circle" style="font-size: 40px; color: rgba(16, 185, 129, 0.4);"></i>
             </div>
 
+            <div class="eoq-card">
+                <i class="fa-solid fa-scale-unbalanced eoq-icon"></i>
+                <div class="eoq-content">
+                    <div class="eoq-title">EOQ Analizi (Sabit Talep Varsayımı)</div>
+                    <div class="eoq-desc" id="eoq-text">
+                        Klasik $EOQ = \sqrt{2DS/h}$ formülü sabit talepler içindir. Dalgalı taleplerde maliyeti şişirebilir. Ortalama talep ile hesaplanan teorik miktar: <span class="eoq-value" id="eoq-value-display">0</span> birim.
+                    </div>
+                </div>
+            </div>
+
             <div class="plan-box">
-                <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px;">Optimum Sipariş Planı</div>
+                <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px;">Optimum WW Sipariş Planı</div>
                 <div id="order-plan-list">
                     <div style="color: #64748b; font-style: italic;">Hesaplama bekleniyor...</div>
                 </div>
@@ -203,7 +240,7 @@
     </div>
 
     <script>
-        // KaTeX formüllerini render et
+        // KaTeX Formül Render
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
                 delimiters: [
@@ -214,7 +251,6 @@
             });
         });
 
-        // DOM Elementleri
         const demandListEl = document.getElementById('demand-list');
         const btnAddPeriod = document.getElementById('btn-add-period');
         const btnRemovePeriod = document.getElementById('btn-remove-period');
@@ -226,14 +262,21 @@
         const totalCostDisplay = document.getElementById('total-cost-display');
         const orderPlanList = document.getElementById('order-plan-list');
         const dpMatrixTable = document.getElementById('dp-matrix');
+        const demandChart = document.getElementById('demand-chart');
+        const eoqValueDisplay = document.getElementById('eoq-value-display');
 
-        // Varsayılan Talepler (Klasik WW örneği)
+        // Varsayılan Dinamik Talepler
         let demands = [20, 50, 10, 50, 40];
 
-        // Arayüzdeki girdi satırlarını oluştur
+        // Girdileri ve Grafiği Çiz
         function renderDemandInputs() {
             demandListEl.innerHTML = '';
+            demandChart.innerHTML = '';
+            
+            const maxDemand = Math.max(...demands) || 1; // SIFIRA BÖLME HATASINI ÖNLE
+
             demands.forEach((d, index) => {
+                // Input Row
                 const row = document.createElement('div');
                 row.className = 'period-row';
                 row.innerHTML = `
@@ -241,19 +284,44 @@
                     <input type="number" class="period-input" data-index="${index}" value="${d}" min="0">
                 `;
                 demandListEl.appendChild(row);
+
+                // Bar Chart
+                const heightPercent = (d / maxDemand) * 100;
+                const barGroup = document.createElement('div');
+                barGroup.className = 'bar-group';
+                barGroup.innerHTML = `
+                    <div class="bar" style="height: ${heightPercent}%"><span class="bar-value">${d}</span></div>
+                    <div class="bar-label">D${index + 1}</div>
+                `;
+                demandChart.appendChild(barGroup);
             });
 
-            // Input değişimlerini dinle
+            // Girdi değişiminde hemen grafiği güncelle
             document.querySelectorAll('.period-input').forEach(input => {
-                input.addEventListener('change', (e) => {
+                input.addEventListener('input', (e) => {
                     demands[e.target.dataset.index] = parseInt(e.target.value) || 0;
+                    updateChartOnly(); // Sadece grafiği anlık güncelle
                 });
             });
         }
 
-        // Dönem Ekle/Çıkar
+        // Sadece grafiği güncelleyen hafif fonksiyon
+        function updateChartOnly() {
+            const maxDemand = Math.max(...demands) || 1;
+            const bars = demandChart.querySelectorAll('.bar');
+            const values = demandChart.querySelectorAll('.bar-value');
+            
+            demands.forEach((d, i) => {
+                if(bars[i]) {
+                    bars[i].style.height = `${(d / maxDemand) * 100}%`;
+                    values[i].innerText = d;
+                }
+            });
+        }
+
+        // Dönem Butonları
         btnAddPeriod.addEventListener('click', () => {
-            if (demands.length < 12) { // Görsellik bozulmasın diye max 12 limit
+            if (demands.length < 10) { 
                 demands.push(Math.floor(Math.random() * 50) + 10);
                 renderDemandInputs();
             }
@@ -266,17 +334,21 @@
             }
         });
 
-        // Başlangıçta render et
         renderDemandInputs();
 
-        // WAGNER-WHITIN ALGORİTMASI ÇEKİRDEĞİ
+        // --- ALGORİTMA VE HESAPLAMALAR ---
         function runWagnerWhitin() {
             const S = parseFloat(setupCostInput.value);
             const h = parseFloat(holdingCostInput.value);
             const N = demands.length;
 
-            // costMatrix[j][t] = j döneminde sipariş verip, j'den t'ye kadarki talepleri karşılama maliyeti.
-            // j ve t 0-indeksli. j <= t olmalı.
+            // 1. YENİ EKLENTİ: EOQ Hesaplaması
+            const totalDemand = demands.reduce((acc, val) => acc + val, 0);
+            const avgDemand = totalDemand / N;
+            const eoq = Math.sqrt((2 * avgDemand * S) / h);
+            eoqValueDisplay.innerText = Math.round(eoq);
+
+            // 2. Wagner-Whitin Maliyet Matrisi
             let costMatrix = Array(N).fill(null).map(() => Array(N).fill(Infinity));
 
             for (let j = 0; j < N; j++) {
@@ -289,9 +361,8 @@
                 }
             }
 
-            // F[t] = 0'dan t'ye kadar olan dönemin minimum toplam maliyeti
+            // 3. İleri Doğru DP Çözümü
             let F = Array(N).fill(Infinity);
-            // trace[t] = t dönemini kapsayan siparişin verildiği dönem (Geri izleme için)
             let trace = Array(N).fill(-1);
 
             for (let t = 0; t < N; t++) {
@@ -302,7 +373,7 @@
                     let prevCost = (j === 0) ? 0 : F[j - 1];
                     let currentCost = prevCost + costMatrix[j][t];
 
-                    if (currentCost <= minCost) { // <= eşitlikte sonrakini tercih et (geç sipariş)
+                    if (currentCost <= minCost) {
                         minCost = currentCost;
                         bestJ = j;
                     }
@@ -311,16 +382,15 @@
                 trace[t] = bestJ;
             }
 
-            // Geri İzleme (Backtracking) ile Sipariş Planını Çıkarma
+            // 4. Geri İzleme (Sipariş Planı)
             let orderPlan = [];
-            let optimalCells = []; // UI'da renklendirmek için
+            let optimalCells = []; 
             let currentT = N - 1;
 
             while (currentT >= 0) {
                 let orderJ = trace[currentT];
                 optimalCells.push({ j: orderJ, t: currentT });
                 
-                // Bu siparişte üretilecek toplam miktar
                 let quantity = 0;
                 for (let k = orderJ; k <= currentT; k++) {
                     quantity += demands[k];
@@ -342,7 +412,7 @@
         function renderResults(totalCost, orderPlan, costMatrix, optimalCells, F) {
             const N = demands.length;
             
-            // 1. Toplam Maliyet Animasyonlu Yazım
+            // Maliyet Sayacı Animasyonu
             let currentDisplay = 0;
             const interval = setInterval(() => {
                 currentDisplay += Math.ceil(totalCost / 20);
@@ -353,41 +423,37 @@
                 totalCostDisplay.innerText = currentDisplay.toLocaleString() + " ₺";
             }, 30);
 
-            // 2. Optimum Plan Listesi
+            // Sipariş Listesi
             orderPlanList.innerHTML = '';
             orderPlan.forEach(plan => {
                 const item = document.createElement('div');
                 item.className = 'plan-item';
                 let coverText = plan.orderPeriod === plan.coversTo ? `Sadece D${plan.orderPeriod}` : `D${plan.orderPeriod} - D${plan.coversTo}`;
                 item.innerHTML = `
-                    <span class="plan-period"><i class="fa-solid fa-box"></i> Dönem ${plan.orderPeriod} Siparişi</span>
+                    <span class="plan-period"><i class="fa-solid fa-truck-fast"></i> Dönem ${plan.orderPeriod} Siparişi</span>
                     <span style="font-size:12px; color: var(--text-muted); margin-left:10px;">(${coverText} talebi)</span>
                     <span class="plan-qty">${plan.quantity} Birim</span>
                 `;
                 orderPlanList.appendChild(item);
             });
 
-            // 3. Matrisi Çizme
+            // DP Matrisi
             dpMatrixTable.innerHTML = '';
             
-            // Başlık Satırı
             let headerRow = '<tr><th>j \\ t</th>';
             for (let t = 0; t < N; t++) headerRow += `<th>Dönem ${t + 1}</th>`;
             headerRow += '</tr>';
             dpMatrixTable.innerHTML += headerRow;
 
-            // Veri Satırları
             for (let j = 0; j < N; j++) {
                 let rowHtml = `<tr><th>j = ${j + 1}</th>`;
                 for (let t = 0; t < N; t++) {
                     if (j > t) {
                         rowHtml += `<td class="cell-invalid">-</td>`;
                     } else {
-                        // Hücre Maliyeti: Önceki adımın minimumu (F[j-1]) + bu adımın maliyeti (costMatrix[j][t])
                         let prevCost = (j === 0) ? 0 : F[j - 1];
                         let cellVal = prevCost + costMatrix[j][t];
                         
-                        // Bu hücre optimal yolda mı?
                         let isOptimal = optimalCells.some(cell => cell.j === j && cell.t === t);
                         let cellClass = isOptimal ? 'cell-optimal' : '';
                         
@@ -397,12 +463,17 @@
                 rowHtml += '</tr>';
                 dpMatrixTable.innerHTML += rowHtml;
             }
+            
+            // Eğer daha önceden render edilmemiş KaTeX formülleri varsa (örn. yeni yazılar), onları da render et.
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ]
+            });
         }
 
-        // Hesapla Butonu Dinleyicisi
         btnCalculate.addEventListener('click', runWagnerWhitin);
-
-        // Sayfa açılışında örnek hesabı göster
         setTimeout(runWagnerWhitin, 500);
 
     </script>

@@ -7,7 +7,7 @@
 
 A modern, interactive web-based Decision Support System (DSS) designed to solve complex dynamic inventory problems. This dashboard applies the **Wagner-Whitin Dynamic Programming Algorithm** to find the absolute optimal order plan for varying demands, while comparing it seamlessly with classical **EOQ (Economic Order Quantity)** calculations.
 
-[🚀 **Click Here for Live Demo**](https://onurfgg.github.io/ie-inventory-optimizer/) *(Linkini buraya ekleyebilirsin)*
+[🚀 **Click Here for Live Demo**](https://onurfgg.github.io/wagner-whitin-dashboard/) 
 
 ## ✨ Key Features
 
@@ -38,3 +38,10 @@ This project is 100% frontend-based. No Node.js backend, no complex build tools,
 1. Clone the repository:
    ```bash
    git clone [https://github.com/onurfgg/ie-inventory-optimizer.git](https://github.com/onurfgg/ie-inventory-optimizer.git)
+
+   👨‍💻 Author
+Onur Furkan Gök
+
+[Linkedin](https://www.linkedin.com/in/onurfurkan/) 
+[GitHub](https://github.com/onurfgg) 
+

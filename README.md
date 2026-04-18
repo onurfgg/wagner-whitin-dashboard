@@ -7,7 +7,7 @@
 
 A modern, interactive web-based Decision Support System (DSS) designed to solve complex dynamic inventory problems. This dashboard applies the **Wagner-Whitin Dynamic Programming Algorithm** to find the absolute optimal order plan for varying demands, while comparing it seamlessly with classical **EOQ (Economic Order Quantity)** calculations.
 
-[🚀 **Click Here for Live Demo**](https://onurfgg.github.io/wagner-whitin-dashboard/) 
+[🚀 **Click Here for Live Demo**](https://onurfgg.github.io/queueing-theory-dashboard/) 
 
 ## ✨ Key Features
 
